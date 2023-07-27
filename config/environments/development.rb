@@ -20,18 +20,22 @@ Rails.application.configure do
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
   if Rails.root.join("tmp/caching-dev.txt").exist?
-    config.action_controller.perform_caching = true
-    config.action_controller.enable_fragment_cache_logging = true
+    config.action_mailer.perform_caching = false
+config.action_mailer.delivery_method = :sendmail
+config.action_mailer.perform_deliveries = true
+config.action_mailer.raise_delivery_errors = true
+config.action_mailer.default_options = {from: 'no-reply@testemail.com'}
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.smtp_settings = {
+address: 'smtp.gmail.com',
+port: 587,
+domain: 'example.com',
+user_name: ENV["gmail_email"],
+password: ENV["gmail_password"],
+authentication: 'plain',
+enable_starttls_auto: true
+}
 
-    config.cache_store = :memory_store
-    config.public_file_server.headers = {
-      "Cache-Control" => "public, max-age=#{2.days.to_i}"
-    }
-  else
-    config.action_controller.perform_caching = false
-
-    config.cache_store = :null_store
-  end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
@@ -46,6 +50,7 @@ Rails.application.configure do
 
   # Raise exceptions for disallowed deprecations.
   config.active_support.disallowed_deprecation = :raise
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
