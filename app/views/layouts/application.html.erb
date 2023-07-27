@@ -29,11 +29,16 @@ aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle 
  <li class="nav-item dropdown">
  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
 aria-expanded="false">
- <% if user_signed_in? %>
- Hola <%= current_user.email %>
+<% if user_signed_in? %>
+ <% if current_user.name %>
+ Hola <%= current_user.name %>
  <% else %>
- Dale registrate o conectate
+ Hola <%= current_user.email %>
  <% end %>
+<% else %>
+ Dale registrate o conectate
+<% end %>
+
  </a>
  <ul class="dropdown-menu">
  <% if user_signed_in? %>
