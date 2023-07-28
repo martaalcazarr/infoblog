@@ -1,7 +1,21 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @post %>
+<h1><%= @post.title %></h1>
+<p><%= @post.description %></p>
 
+<% @post.comments.each do |comment| %>
+  <p><strong><%= comment.user.email %>:</strong> <%= comment.content %></p>
+<% end %>
+
+<%= form_with(model: [@post, Comment.new]) do |form| %>
+  <p>
+    <%= form.text_area :content, placeholder: "Ingresa tu comentario aquí..." %>
+  </p>
+  <p>
+    <%= form.submit "Publicar comentario" %>
+  </p>
+<% end %>
 
 <div>
  <%= link_to "Back to posts", posts_path %>

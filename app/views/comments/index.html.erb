@@ -1,0 +1,21 @@
+<h1>Comentarios del usuario <%= @user.username %></h1>
+
+<% if @comments.any? %>
+  <ul>
+    <% @comments.each do |comment| %>
+      <li>
+        <strong>Creador:</strong> <%= comment.user.email %><br>
+        <% if comment.image %>
+          <strong>Imagen de perfil:</strong> <%= comment.image.url %><br>
+          <strong>Contexto:</strong> <%= comment.image.context %><br>
+        <% end %>
+        <strong>Comentario:</strong> <%= comment.content %><br>
+        <hr>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No hay comentarios para este usuario.</p>
+<% end %>
+
+<%= link_to 'Volver', root_path %>

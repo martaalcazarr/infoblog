@@ -3,12 +3,23 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]  
+  before_action :authenticate_user!
 
+  def comments
+    @user = current_user
+    @comments = @user.comments
+    render 'comments/index'
+  end
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
-
+  def new
+    super do |resource|
+    resource.images.build
+    end
+  end
+  
+  def show
+    @user = current_user
+  end
   # POST /resource
   # def create
   #   super
@@ -39,7 +50,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # protected
+  private
 
+  def sign_up_params
+    params.require(:user).permit(:name, :phone, :age, :email, :password, :password_confirmation, images_attributes: [:url, :context])
+  end
+  
+  def account_update_params
+    params.require(:user).permit(:name, :phone, :age, :email, :password, :password_confirmation, :current_password, images_attributes: [:url, :context])
+  end
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :age, :phone])

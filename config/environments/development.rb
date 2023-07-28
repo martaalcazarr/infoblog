@@ -35,7 +35,7 @@ password: ENV["gmail_password"],
 authentication: 'plain',
 enable_starttls_auto: true
 }
-
+end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
