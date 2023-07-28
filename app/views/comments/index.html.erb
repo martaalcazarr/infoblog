@@ -1,0 +1,17 @@
+<h1>Comentarios del usuario <%= @user.email %></h1>
+
+<% if @comments.any? %>
+  <ul>
+    <% @comments.each do |comment| %>
+      <li>
+        <strong>Creador:</strong> <%= comment.user.email %><br>
+        <strong>Comentario:</strong> <%= comment.body %><br>
+        <hr>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No hay comentarios para este usuario.</p>
+<% end %>
+
+<%= link_to 'Volver', root_path %>

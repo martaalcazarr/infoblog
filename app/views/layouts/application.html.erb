@@ -38,7 +38,9 @@ aria-expanded="false">
 <% else %>
  Dale registrate o conectate
 <% end %>
-
+  <% if user_signed_in? %>
+      <li><%= link_to "Mis Comentarios", comments_user_path(current_user) %></li>
+    <% end %>
  </a>
  <ul class="dropdown-menu">
  <% if user_signed_in? %>

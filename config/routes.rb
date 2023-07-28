@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   }   
   resources :posts
   get 'home/index'
+  
+  devise_scope :user do
+    get 'users/comments', to: 'users/registrations#comments', as: 'comments_user'
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
