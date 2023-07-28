@@ -3,9 +3,13 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }   
-  resources :posts
+  resources :posts do
+    resources :comments, only: [:create, :destroy]
+  end
   get 'home/index'
-  
+  devise_scope :user do
+    get 'users/profile', to: 'users/registrations#show', as: 'user_profile'
+  end
   devise_scope :user do
     get 'users/comments', to: 'users/registrations#comments', as: 'comments_user'
   end
