@@ -26,10 +26,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
-
+  def edit
+    @user = current_user
+  end
+  def update
+    @user = current_user
+    if @user.update(user_params)
+      redirect_to user_profile_path, notice: 'Perfil actualizado exitosamente.'
+    else
+      render :edit
+    end
+  end
   # PUT /resource
   # def update
   #   super
@@ -66,7 +73,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :age, :phone])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :phone, :age, :image])
   end
 
   # The path used after sign up.
