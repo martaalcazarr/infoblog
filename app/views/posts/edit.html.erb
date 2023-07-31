@@ -1,6 +1,29 @@
 <h1>Editing post</h1>
 
-<%= render "form", post: @post %>
+<%= form_with(model: @post, url: post_path(@post), method: :patch) do |form| %>
+  <% if @post.image.attached? %>
+    <%= image_tag @post.image %>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :image %><br />
+    <%= form.file_field :image %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :title %><br />
+    <%= form.text_field :title, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description %><br />
+    <%= form.text_area :description, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Update" %>
+  </div>
+<% end %>
 
 <br>
 
