@@ -1,6 +1,9 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @post %>
+<% if @post.image.attached? %>
+  <%= image_tag @post.image.url %>
+<% end %>
 <h1><%= @post.title %></h1>
 <p><%= @post.description %></p>
 
