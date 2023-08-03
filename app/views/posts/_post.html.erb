@@ -1,17 +1,10 @@
-<div id="<%= dom_id post %>">
- <% if post.image.attached? %>
-  <%= image_tag post.image %>
-<% end %>
+<div id="<%= dom_id post %>" class="card mb-3">
+  <div class="card-body">
+    <% if post.image.attached? %>
+      <%= image_tag post.image, class: "img-fluid" %>
+    <% end %>
 
-
-  <p>
-    <strong>Title:</strong>
-    <%= post.title %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= post.description %>
-  </p>
-
+    <h5 class="card-title"><%= post.title %></h5>
+    <p class="card-text"><%= post.description %></p>
+  </div>
 </div>
